@@ -1,4 +1,5 @@
-An Extensible Config Package, supporting the usage elements of Spring Boot and Node "config" in Go
+A simple configurable logging facade for Go, using the [config](https://github.com/alt-golang/config)
+package
 =====================================
 
 
@@ -7,8 +8,8 @@ An Extensible Config Package, supporting the usage elements of Spring Boot and N
 
 <a name="intro">Introduction</a>
 --------------------------------
-A simple configurable logging facade for JavaScript, using the popular [config](https://www.npmjs.com/package/config)
-package interface.
+A simple configurable logging facade for Go, using the [config](https://github.com/alt-golang/config)
+package.
 
 <a name="usage">Usage</a>
 -------------------------
