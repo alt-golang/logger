@@ -14,8 +14,8 @@ package.
 <a name="usage">Usage</a>
 -------------------------
 
-To use the module, import the LoggerFactory and call the `GetLogger` function with a logging category (your module
-requires path is a sensible choice).
+To use the module, import the module and call the `GetLogger` function with a logging category (your module
+url and package path is a sensible choice).
 
 ```go
 import  ( "github.com/alt-golang/logger") ;
