@@ -58,11 +58,11 @@ var registry = Registry{
 }
 
 var factory = DefaultFactory{
-	loggingConfig:      loggingConfig,
-	format:             loggingConfig.GetFormat(),
-	plainTextFormatter: PlainTextFormatter{},
-	jsonFormatter:      JSONFormatter{},
-	registry:           registry,
+	LoggingConfig:      loggingConfig,
+	Format:             loggingConfig.GetFormat(),
+	PlainTextFormatter: PlainTextFormatter{},
+	JSONFormatter:      JSONFormatter{},
+	Registry:           registry,
 }
 
 func GetFactory() Factory {
