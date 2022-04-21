@@ -1,5 +1,4 @@
-A simple configurable logging facade for Go, using the [config](https://github.com/alt-golang/config)
-package
+A simple configurable logging facade for Go, using the [config](https://github.com/alt-golang/config) package
 =====================================
 
 
