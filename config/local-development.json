@@ -1,0 +1,14 @@
+{
+  "key": "value",
+  "logging" : {
+    "format" : "json",
+     "level" : {
+       "/" : "info",
+       "github.com/alt-golang/logger" : "info",
+       "github.com/alt-golang/logger/trace" : "trace",
+       "github.com/alt-golang/logger/Levels" : "error",
+       "github.com/alt-golang/logger/Factory" : "debug",
+       "github.com/alt-golang/logger/logger_test" : "info"
+     }
+  }
+}

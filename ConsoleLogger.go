@@ -1,162 +1,107 @@
-package slf4g
+package logger
 
 import (
-	"fmt"
 	"time"
 )
 
 type ConsoleLogger struct {
-	defaultLoggerConfig DefaultLoggerConfig
-	consoleWriter       ConsoleWriter
-	formatter           Formatter
+	config        Config
+	consoleWriter ConsoleWriter
+	formatter     Formatter
 	Logger
 }
 
-func (consoleLogger ConsoleLogger) GetLoggerConfig() LoggerConfig {
-	return consoleLogger.defaultLoggerConfig
-}
-func (consoleLogger ConsoleLogger) SetCategory(category string) {
-	consoleLogger.defaultLoggerConfig.SetCategory(category)
-}
-func (consoleLogger ConsoleLogger) GetLevel() int {
-	return consoleLogger.defaultLoggerConfig.GetLevel()
-}
-func (consoleLogger ConsoleLogger) SetLevel(level int) {
-	consoleLogger.defaultLoggerConfig.SetLevel(level)
-}
 func (consoleLogger ConsoleLogger) IsLevelEnabled(level int) bool {
-	return consoleLogger.defaultLoggerConfig.IsLevelEnabled(level)
+	return consoleLogger.config.IsLevelEnabled(level)
 }
 func (consoleLogger ConsoleLogger) IsTraceEnabled() bool {
-	return consoleLogger.defaultLoggerConfig.IsLevelEnabled(TRACE)
+	return consoleLogger.config.IsLevelEnabled(TRACE)
 }
 func (consoleLogger ConsoleLogger) IsDebugEnabled() bool {
-	return consoleLogger.defaultLoggerConfig.IsLevelEnabled(DEBUG)
+	return consoleLogger.config.IsLevelEnabled(DEBUG)
 }
 func (consoleLogger ConsoleLogger) IsInfoEnabled() bool {
-	return consoleLogger.defaultLoggerConfig.IsLevelEnabled(INFO)
+	return consoleLogger.config.IsLevelEnabled(INFO)
 }
 func (consoleLogger ConsoleLogger) IsWarnEnabled() bool {
-	return consoleLogger.defaultLoggerConfig.IsLevelEnabled(WARN)
+	return consoleLogger.config.IsLevelEnabled(WARN)
 }
 func (consoleLogger ConsoleLogger) IsErrorEnabled() bool {
-	return consoleLogger.defaultLoggerConfig.IsLevelEnabled(ERROR)
+	return consoleLogger.config.IsLevelEnabled(ERROR)
 }
 func (consoleLogger ConsoleLogger) IsFatalEnabled() bool {
-	return consoleLogger.defaultLoggerConfig.IsLevelEnabled(FATAL)
+	return consoleLogger.config.IsLevelEnabled(FATAL)
 }
 func (consoleLogger ConsoleLogger) IsPanicEnabled() bool {
-	return consoleLogger.defaultLoggerConfig.IsLevelEnabled(PANIC)
+	return consoleLogger.config.IsLevelEnabled(PANIC)
 }
 
-func (consoleLogger ConsoleLogger) Trace(v ...any) {
+func (consoleLogger ConsoleLogger) Trace(message string) {
+	consoleLogger.TraceWithMetadata(message, nil)
+}
+
+func (consoleLogger ConsoleLogger) TraceWithMetadata(message string, metadata interface{}) {
 	if consoleLogger.IsTraceEnabled() {
-		consoleLogger.consoleWriter.Outln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[TRACE], fmt.Sprintln(v...), nil))
-	}
-}
-func (consoleLogger ConsoleLogger) Tracef(format string, v ...any) {
-	if consoleLogger.IsTraceEnabled() {
-		consoleLogger.consoleWriter.Outln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[TRACE], fmt.Sprintf(format, v...), nil))
-	}
-}
-func (consoleLogger ConsoleLogger) Traceln(v ...any) {
-	if consoleLogger.IsTraceEnabled() {
-		consoleLogger.consoleWriter.Outln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[TRACE], fmt.Sprintln(v...), nil))
+		consoleLogger.consoleWriter.Outln(consoleLogger.formatter.Format(time.Now(), consoleLogger.config.category, consoleLogger.config.levels.GetNameForValue(TRACE), message, metadata))
 	}
 }
 
-func (consoleLogger ConsoleLogger) Debug(v ...any) {
+func (consoleLogger ConsoleLogger) Debug(message string) {
+	consoleLogger.DebugWithMetadata(message, nil)
+}
+
+func (consoleLogger ConsoleLogger) DebugWithMetadata(message string, metadata interface{}) {
 	if consoleLogger.IsDebugEnabled() {
-		consoleLogger.consoleWriter.Outln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[DEBUG], fmt.Sprintln(v...), nil))
-	}
-}
-func (consoleLogger ConsoleLogger) Debugf(format string, v ...any) {
-	if consoleLogger.IsDebugEnabled() {
-		consoleLogger.consoleWriter.Outln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[DEBUG], fmt.Sprintf(format, v...), nil))
-	}
-}
-func (consoleLogger ConsoleLogger) Debugln(v ...any) {
-	if consoleLogger.IsDebugEnabled() {
-		consoleLogger.consoleWriter.Outln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[DEBUG], fmt.Sprintln(v...), nil))
+		consoleLogger.consoleWriter.Outln(consoleLogger.formatter.Format(time.Now(), consoleLogger.config.category, consoleLogger.config.levels.GetNameForValue(DEBUG), message, metadata))
 	}
 }
 
-func (consoleLogger ConsoleLogger) Info(v ...any) {
+func (consoleLogger ConsoleLogger) Info(message string) {
+	consoleLogger.InfoWithMetadata(message, nil)
+}
+
+func (consoleLogger ConsoleLogger) InfoWithMetadata(message string, metadata interface{}) {
 	if consoleLogger.IsInfoEnabled() {
-		consoleLogger.consoleWriter.Outln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[INFO], fmt.Sprintln(v...), nil))
-	}
-}
-func (consoleLogger ConsoleLogger) Infof(format string, v ...any) {
-	if consoleLogger.IsInfoEnabled() {
-		consoleLogger.consoleWriter.Outln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[INFO], fmt.Sprintf(format, v...), nil))
-	}
-}
-func (consoleLogger ConsoleLogger) Infoln(v ...any) {
-	if consoleLogger.IsInfoEnabled() {
-		consoleLogger.consoleWriter.Outln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[INFO], fmt.Sprintln(v...), nil))
+		consoleLogger.consoleWriter.Outln(consoleLogger.formatter.Format(time.Now(), consoleLogger.config.category, consoleLogger.config.levels.GetNameForValue(INFO), message, metadata))
 	}
 }
 
-func (consoleLogger ConsoleLogger) Warn(v ...any) {
+func (consoleLogger ConsoleLogger) Warn(message string) {
+	consoleLogger.WarnWithMetadata(message, nil)
+}
+
+func (consoleLogger ConsoleLogger) WarnWithMetadata(message string, metadata interface{}) {
 	if consoleLogger.IsWarnEnabled() {
-		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[WARN], fmt.Sprintln(v...), nil))
-	}
-}
-func (consoleLogger ConsoleLogger) Warnf(format string, v ...any) {
-	if consoleLogger.IsWarnEnabled() {
-		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[WARN], fmt.Sprintf(format, v...), nil))
-	}
-}
-func (consoleLogger ConsoleLogger) Warnln(v ...any) {
-	if consoleLogger.IsWarnEnabled() {
-		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[WARN], fmt.Sprintln(v...), nil))
+		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.config.category, consoleLogger.config.levels.GetNameForValue(WARN), message, metadata))
 	}
 }
 
-func (consoleLogger ConsoleLogger) Error(v ...any) {
-	if consoleLogger.IsErrorEnabled() {
-		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[ERROR], fmt.Sprintln(v...), nil))
-	}
+func (consoleLogger ConsoleLogger) Error(message string) {
+	consoleLogger.ErrorWithMetadata(message, nil)
 }
-func (consoleLogger ConsoleLogger) Errorf(format string, v ...any) {
+
+func (consoleLogger ConsoleLogger) ErrorWithMetadata(message string, metadata interface{}) {
 	if consoleLogger.IsErrorEnabled() {
-		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[ERROR], fmt.Sprintf(format, v...), nil))
-	}
-}
-func (consoleLogger ConsoleLogger) Errorln(v ...any) {
-	if consoleLogger.IsErrorEnabled() {
-		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[ERROR], fmt.Sprintln(v...), nil))
+		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.config.category, consoleLogger.config.levels.GetNameForValue(ERROR), message, metadata))
 	}
 }
 
-func (consoleLogger ConsoleLogger) Fatal(v ...any) {
-	if consoleLogger.IsFatalEnabled() {
-		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[FATAL], fmt.Sprintln(v...), nil))
-	}
+func (consoleLogger ConsoleLogger) Fatal(message string) {
+	consoleLogger.FatalWithMetadata(message, nil)
 }
-func (consoleLogger ConsoleLogger) Fatalf(format string, v ...any) {
+
+func (consoleLogger ConsoleLogger) FatalWithMetadata(message string, metadata interface{}) {
 	if consoleLogger.IsFatalEnabled() {
-		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[FATAL], fmt.Sprintf(format, v...), nil))
-	}
-}
-func (consoleLogger ConsoleLogger) Fatalln(v ...any) {
-	if consoleLogger.IsFatalEnabled() {
-		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[FATAL], fmt.Sprintln(v...), nil))
+		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.config.category, consoleLogger.config.levels.GetNameForValue(FATAL), message, metadata))
 	}
 }
 
-func (consoleLogger ConsoleLogger) Panic(v ...any) {
-	if consoleLogger.IsPanicEnabled() {
-		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[PANIC], fmt.Sprintln(v...), nil))
-	}
+func (consoleLogger ConsoleLogger) Panic(message string) {
+	consoleLogger.PanicWithMetadata(message, nil)
 }
-func (consoleLogger ConsoleLogger) Panicf(format string, v ...any) {
+
+func (consoleLogger ConsoleLogger) PanicWithMetadata(message string, metadata interface{}) {
 	if consoleLogger.IsPanicEnabled() {
-		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[PANIC], fmt.Sprintf(format, v...), nil))
-	}
-}
-func (consoleLogger ConsoleLogger) Panicln(v ...any) {
-	if consoleLogger.IsPanicEnabled() {
-		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.defaultLoggerConfig.category, consoleLogger.defaultLoggerConfig.levels[PANIC], fmt.Sprintln(v...), nil))
+		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.config.category, consoleLogger.config.levels.GetNameForValue(PANIC), message, metadata))
 	}
 }

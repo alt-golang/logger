@@ -1,4 +1,4 @@
-package slf4g
+package logger
 
 import (
 	"fmt"
@@ -10,7 +10,7 @@ type PlainTextFormatter struct {
 }
 
 func (plainTextFormatter PlainTextFormatter) Format(t time.Time, category string, level string, message string, meta interface{}) string {
-	result := fmt.Sprint(t) + ":" + category + ":" + level + ":" + message
+	result := t.Format("2006-Jan-02 Monday 03:04:05.999 PM MST -07:00") + ":" + category + ":" + level + ":" + message
 
 	if meta != nil {
 		result = result + fmt.Sprint(meta)
