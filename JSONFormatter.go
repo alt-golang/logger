@@ -23,8 +23,6 @@ func (jsonFormatter JSONFormatter) Format(t time.Time, category string, level st
 	if meta != nil {
 
 		val := reflect.ValueOf(meta)
-		fmt.Println("VALUE = ", val)
-		fmt.Println("KIND = ", val.Kind())
 
 		if val.Kind() == reflect.Map {
 			for _, e := range val.MapKeys() {
