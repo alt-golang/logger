@@ -1,3 +1,3 @@
-package config
+package logger
 
-var version = "1.0.0"
+var version = "1.0.1"
