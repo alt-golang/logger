@@ -1,16 +1,16 @@
 package logger
 
 type Config struct {
-	category           string
-	levels             Levels
-	categoryLevelCache CategoryLevelCache
+	Category           string
+	Levels             Levels
+	CategoryLevelCache CategoryLevelCache
 }
 
 func (config Config) GetLevel() int {
-	if config.categoryLevelCache.Get(config.category) == nil {
+	if config.CategoryLevelCache.Get(config.Category) == nil {
 		return INFO
 	}
-	return config.categoryLevelCache.Get(config.category).(int)
+	return config.CategoryLevelCache.Get(config.Category).(int)
 }
 func (config Config) IsLevelEnabled(level int) bool {
 	if config.GetLevel() <= level {

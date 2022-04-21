@@ -5,35 +5,35 @@ import (
 )
 
 type ConsoleLogger struct {
-	config        Config
-	consoleWriter ConsoleWriter
-	formatter     Formatter
+	Config        Config
+	ConsoleWriter ConsoleWriter
+	Formatter     Formatter
 	Logger
 }
 
 func (consoleLogger ConsoleLogger) IsLevelEnabled(level int) bool {
-	return consoleLogger.config.IsLevelEnabled(level)
+	return consoleLogger.Config.IsLevelEnabled(level)
 }
 func (consoleLogger ConsoleLogger) IsTraceEnabled() bool {
-	return consoleLogger.config.IsLevelEnabled(TRACE)
+	return consoleLogger.Config.IsLevelEnabled(TRACE)
 }
 func (consoleLogger ConsoleLogger) IsDebugEnabled() bool {
-	return consoleLogger.config.IsLevelEnabled(DEBUG)
+	return consoleLogger.Config.IsLevelEnabled(DEBUG)
 }
 func (consoleLogger ConsoleLogger) IsInfoEnabled() bool {
-	return consoleLogger.config.IsLevelEnabled(INFO)
+	return consoleLogger.Config.IsLevelEnabled(INFO)
 }
 func (consoleLogger ConsoleLogger) IsWarnEnabled() bool {
-	return consoleLogger.config.IsLevelEnabled(WARN)
+	return consoleLogger.Config.IsLevelEnabled(WARN)
 }
 func (consoleLogger ConsoleLogger) IsErrorEnabled() bool {
-	return consoleLogger.config.IsLevelEnabled(ERROR)
+	return consoleLogger.Config.IsLevelEnabled(ERROR)
 }
 func (consoleLogger ConsoleLogger) IsFatalEnabled() bool {
-	return consoleLogger.config.IsLevelEnabled(FATAL)
+	return consoleLogger.Config.IsLevelEnabled(FATAL)
 }
 func (consoleLogger ConsoleLogger) IsPanicEnabled() bool {
-	return consoleLogger.config.IsLevelEnabled(PANIC)
+	return consoleLogger.Config.IsLevelEnabled(PANIC)
 }
 
 func (consoleLogger ConsoleLogger) Trace(message string) {
@@ -42,7 +42,7 @@ func (consoleLogger ConsoleLogger) Trace(message string) {
 
 func (consoleLogger ConsoleLogger) TraceWithMetadata(message string, metadata interface{}) {
 	if consoleLogger.IsTraceEnabled() {
-		consoleLogger.consoleWriter.Outln(consoleLogger.formatter.Format(time.Now(), consoleLogger.config.category, consoleLogger.config.levels.GetNameForValue(TRACE), message, metadata))
+		consoleLogger.ConsoleWriter.Outln(consoleLogger.Formatter.Format(time.Now(), consoleLogger.Config.Category, consoleLogger.Config.Levels.GetNameForValue(TRACE), message, metadata))
 	}
 }
 
@@ -52,7 +52,7 @@ func (consoleLogger ConsoleLogger) Debug(message string) {
 
 func (consoleLogger ConsoleLogger) DebugWithMetadata(message string, metadata interface{}) {
 	if consoleLogger.IsDebugEnabled() {
-		consoleLogger.consoleWriter.Outln(consoleLogger.formatter.Format(time.Now(), consoleLogger.config.category, consoleLogger.config.levels.GetNameForValue(DEBUG), message, metadata))
+		consoleLogger.ConsoleWriter.Outln(consoleLogger.Formatter.Format(time.Now(), consoleLogger.Config.Category, consoleLogger.Config.Levels.GetNameForValue(DEBUG), message, metadata))
 	}
 }
 
@@ -62,7 +62,7 @@ func (consoleLogger ConsoleLogger) Info(message string) {
 
 func (consoleLogger ConsoleLogger) InfoWithMetadata(message string, metadata interface{}) {
 	if consoleLogger.IsInfoEnabled() {
-		consoleLogger.consoleWriter.Outln(consoleLogger.formatter.Format(time.Now(), consoleLogger.config.category, consoleLogger.config.levels.GetNameForValue(INFO), message, metadata))
+		consoleLogger.ConsoleWriter.Outln(consoleLogger.Formatter.Format(time.Now(), consoleLogger.Config.Category, consoleLogger.Config.Levels.GetNameForValue(INFO), message, metadata))
 	}
 }
 
@@ -72,7 +72,7 @@ func (consoleLogger ConsoleLogger) Warn(message string) {
 
 func (consoleLogger ConsoleLogger) WarnWithMetadata(message string, metadata interface{}) {
 	if consoleLogger.IsWarnEnabled() {
-		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.config.category, consoleLogger.config.levels.GetNameForValue(WARN), message, metadata))
+		consoleLogger.ConsoleWriter.Errln(consoleLogger.Formatter.Format(time.Now(), consoleLogger.Config.Category, consoleLogger.Config.Levels.GetNameForValue(WARN), message, metadata))
 	}
 }
 
@@ -82,7 +82,7 @@ func (consoleLogger ConsoleLogger) Error(message string) {
 
 func (consoleLogger ConsoleLogger) ErrorWithMetadata(message string, metadata interface{}) {
 	if consoleLogger.IsErrorEnabled() {
-		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.config.category, consoleLogger.config.levels.GetNameForValue(ERROR), message, metadata))
+		consoleLogger.ConsoleWriter.Errln(consoleLogger.Formatter.Format(time.Now(), consoleLogger.Config.Category, consoleLogger.Config.Levels.GetNameForValue(ERROR), message, metadata))
 	}
 }
 
@@ -92,7 +92,7 @@ func (consoleLogger ConsoleLogger) Fatal(message string) {
 
 func (consoleLogger ConsoleLogger) FatalWithMetadata(message string, metadata interface{}) {
 	if consoleLogger.IsFatalEnabled() {
-		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.config.category, consoleLogger.config.levels.GetNameForValue(FATAL), message, metadata))
+		consoleLogger.ConsoleWriter.Errln(consoleLogger.Formatter.Format(time.Now(), consoleLogger.Config.Category, consoleLogger.Config.Levels.GetNameForValue(FATAL), message, metadata))
 	}
 }
 
@@ -102,6 +102,6 @@ func (consoleLogger ConsoleLogger) Panic(message string) {
 
 func (consoleLogger ConsoleLogger) PanicWithMetadata(message string, metadata interface{}) {
 	if consoleLogger.IsPanicEnabled() {
-		consoleLogger.consoleWriter.Errln(consoleLogger.formatter.Format(time.Now(), consoleLogger.config.category, consoleLogger.config.levels.GetNameForValue(PANIC), message, metadata))
+		consoleLogger.ConsoleWriter.Errln(consoleLogger.Formatter.Format(time.Now(), consoleLogger.Config.Category, consoleLogger.Config.Levels.GetNameForValue(PANIC), message, metadata))
 	}
 }

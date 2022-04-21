@@ -5,11 +5,11 @@ import (
 )
 
 type DefaultFactory struct {
-	loggingConfig      LoggingConfig
-	format             string
-	jsonFormatter      JSONFormatter
-	plainTextFormatter PlainTextFormatter
-	registry           Registry
+	LoggingConfig      LoggingConfig
+	Format             string
+	JSONFormatter      JSONFormatter
+	PlainTextFormatter PlainTextFormatter
+	Registry           Registry
 	Factory
 }
 
@@ -18,22 +18,22 @@ func (loggerFactory DefaultFactory) GetLogger(category string) Logger {
 	loggingConfig.FetchCategoryLevel(category)
 
 	config := Config{
-		category: category,
-		levels:   defaultLevels,
+		Category: category,
+		Levels:   defaultLevels,
 	}
 	consoleLogger := ConsoleLogger{
-		config:        config,
-		consoleWriter: DefaultConsoleWriter{},
-		formatter:     loggerFactory.GetFormatter(),
+		Config:        config,
+		ConsoleWriter: DefaultConsoleWriter{},
+		Formatter:     loggerFactory.GetFormatter(),
 	}
 
-	loggerFactory.registry.loggers[category] = consoleLogger
+	loggerFactory.Registry.Loggers[category] = consoleLogger
 	return consoleLogger
 }
 
 func (loggerFactory DefaultFactory) GetFormatter() Formatter {
-	if strings.ToLower(loggerFactory.format) == "text" {
-		return loggerFactory.plainTextFormatter
+	if strings.ToLower(loggerFactory.Format) == "text" {
+		return loggerFactory.PlainTextFormatter
 	}
-	return loggerFactory.jsonFormatter
+	return loggerFactory.JSONFormatter
 }

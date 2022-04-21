@@ -1,5 +1,5 @@
 package logger
 
 type Registry struct {
-	loggers map[string]Logger
+	Loggers map[string]Logger
 }

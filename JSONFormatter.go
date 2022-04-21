@@ -18,7 +18,7 @@ func (jsonFormatter JSONFormatter) Format(t time.Time, category string, level st
 		"level":     level,
 		"message":   message,
 		"timestamp": t,
-		"category":  category,
+		"Category":  category,
 	}
 	if meta != nil {
 

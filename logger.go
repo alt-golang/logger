@@ -39,7 +39,7 @@ const DEFAULT_CONFIG_PATH = "logging.level"
 var config = config_pkg.GetConfig()
 
 var categoryLevelCache = CategoryLevelCache{
-	cache: map[string]interface{}{},
+	Cache: map[string]interface{}{},
 }
 
 func GetCategoryLevelCache() CategoryLevelCache {
@@ -54,7 +54,7 @@ var loggingConfig = LoggingConfig{
 }
 
 var registry = Registry{
-	loggers: map[string]Logger{},
+	Loggers: map[string]Logger{},
 }
 
 var factory = DefaultFactory{
